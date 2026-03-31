@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Thiệp mời</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    background:#f5f1ea;
+    font-family: 'Playfair Display', serif;
+    color:#5c4a3d;
+}
+
+/* Trang mở thiệp */
+.cover{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f5f1ea;
+}
+
+.open-btn{
+    padding:15px 30px;
+    font-size:20px;
+    border:1px solid #caa56a;
+    background:white;
+    cursor:pointer;
+}
+
+/* Nội dung chính */
+.container{
+    width:900px;
+    margin:auto;
+    padding:40px;
+    background:#f8f4ee;
+    display:none;
+}
+
+.header{
+    display:flex;
+    align-items:center;
+}
+
+.avatar{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    border:5px solid #d4b07a;
+    margin-right:30px;
+    background:url("https://cdn-icons-png.flaticon.com/512/847/847969.png");
+    background-size:cover;
+}
+
+.title{
+    font-family: 'Dancing Script', cursive;
+    font-size:40px;
+    color:#a67c52;
+}
+
+.name{
+    font-size:36px;
+    margin-top:10px;
+}
+
+.button{
+    display:inline-block;
+    border:1px solid #caa56a;
+    padding:8px 20px;
+    margin-top:10px;
+    border-radius:5px;
+}
+
+/* Thông tin */
+.section-title{
+    text-align:center;
+    margin-top:40px;
+    background:#caa56a;
+    color:white;
+    padding:8px;
+    width:250px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.info-box{
+    border:1px solid #e0d5c5;
+    padding:30px;
+    margin-top:20px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.info{
+    width:45%;
+    text-align:center;
+}
+
+/* Timeline */
+.timeline{
+    margin-top:40px;
+    text-align:center;
+}
+
+.timeline-line{
+    height:2px;
+    background:#caa56a;
+    margin:40px 0;
+    position:relative;
+}
+
+.dot{
+    width:12px;
+    height:12px;
+    background:#caa56a;
+    border-radius:50%;
+    position:absolute;
+    top:-5px;
+}
+
+.dot1{left:20%;}
+.dot2{left:50%;}
+.dot3{left:80%;}
+
+/* RSVP */
+.rsvp-section{
+    display:flex;
+    gap:30px;
+    margin-top:50px;
+}
+
+.rsvp, .guestbook{
+    width:50%;
+    border:1px solid #e0d5c5;
+    padding:25px;
+    background:#f8f4ee;
+}
+
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    border-bottom:1px solid #caa56a;
+    background:transparent;
+}
+
+.btn{
+    padding:8px 15px;
+    border:1px solid #caa56a;
+    background:white;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.submit{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    background:#d8d2c8;
+    border:none;
+}
+
+.message{
+    border-bottom:1px solid #ddd;
+    padding:10px 0;
+}
+
+/* Countdown */
+.countdown{
+    text-align:center;
+    font-size:22px;
+    margin-top:30px;
+    color:#a67c52;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Trang mở -->
+<div class="cover">
+    <button class="open-btn" onclick="openCard()">Mở thiệp</button>
+</div>
+
+<!-- Nội dung -->
+<div class="container" id="card">
+
+    <div class="header">
+        <div class="avatar"></div>
+        <div>
+            <div class="title">Mời bạn đến tham dự cùng</div>
+            <div class="name">Trần Huệ Chi</div>
+            <div class="button">K69</div>
+        </div>
+    </div>
+
+    <div class="countdown" id="countdown"></div>
+
+    <div class="section-title">THÔNG TIN CHI TIẾT</div>
+
+    <div class="info-box">
+        <div class="info">
+            <h3>Thời gian</h3>
+            <p>08:00</p>
+            <p>26/05/2026</p>
+            <br>
+            <h3>Dresscode</h3>
+            <p>Trắng & Đen</p>
+        </div>
+
+        <div class="info">
+            <h3>Địa điểm</h3>
+            <p>Sân trường Đại học Thăng Long</p>
+            <p>Hoàng Mai</p>
+            <br>
+            <h3>Liên hệ</h3>
+            <p>0912 345 678</p>
+        </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline">
+        <h2 style="font-family:Dancing Script;color:#a67c52;">Timeline</h2>
+
+        <div class="timeline-line">
+            <div class="dot dot1"></div>
+            <div class="dot dot2"></div>
+            <div class="dot dot3"></div>
+        </div>
+
+        <div style="display:flex;justify-content:space-around;">
+            <div>
+                <b>07:30</b>
+                <p>Makeup</p>
+            </div>
+            <div>
+                <b>08:30</b>
+                <p>Chụp tập thể</p>
+            </div>
+            <div>
+                <b>11:00</b>
+                <p>Tự do</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- RSVP -->
+    <div class="rsvp-section">
+
+        <div class="rsvp">
+            <h2>RSVP</h2>
+            <input type="text" id="name" placeholder="Tên của bạn">
+            <textarea id="wish" placeholder="Lời chúc"></textarea>
+
+            <button class="btn" onclick="attend('Tham dự')">THAM DỰ</button>
+            <button class="btn" onclick="attend('Tiếc quá')">TIẾC QUÁ</button>
+
+            <button class="submit" onclick="sendMessage()">GỬI XÁC NHẬN</button>
+        </div>
+
+        <div class="guestbook">
+            <h2>Sổ lưu bút</h2>
+            <div id="messages"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Nhạc -->
+<audio id="music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function openCard(){
+    document.querySelector(".cover").style.display="none";
+    document.getElementById("card").style.display="block";
+    document.getElementById("music").play();
+}
+
+/* Countdown */
+var countDownDate = new Date("May 26, 2026 08:00:00").getTime();
+
+var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML =
+    "Còn " + days + " ngày " + hours + " giờ "
+    + minutes + " phút " + seconds + " giây";
+}, 1000);
+
+/* RSVP */
+let statusAttend = "";
+
+function attend(status){
+    statusAttend = status;
+}
+
+function sendMessage(){
+    let name = document.getElementById("name").value;
+    let wish = document.getElementById("wish").value;
+
+    if(name == "") return;
+
+    let messageBox = document.getElementById("messages");
+
+    let div = document.createElement("div");
+    div.className = "message";
+    div.innerHTML = "<b>" + name + "</b><br>" +
+                    '"' + wish + '"<br>' +
+                    "<i>" + statusAttend + "</i>";
+
+    messageBox.prepend(div);
+
+    document.getElementById("name").value="";
+    document.getElementById("wish").value="";
+}
+</script>
+
+</body>
+</html>
