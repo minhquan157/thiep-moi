@@ -1,329 +1,350 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Thiệp mời</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Playfair+Display&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trần Huệ Chi - Lời Mời Trân Trọng</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #a67c52;
+            --gold: #caa56a;
+            --bg: #fdfaf6;
+            --text: #4b3b2b;
+            --envelope-bg: #f3ede2;
+        }
 
-<style>
-body{
-    margin:0;
-    background:#f5f1ea;
-    font-family: 'Playfair Display', serif;
-    color:#5c4a3d;
-}
+        body {
+            margin: 0;
+            background: var(--bg);
+            font-family: 'Playfair Display', serif;
+            color: var(--text);
+            overflow-x: hidden;
+        }
 
-/* Trang mở thiệp */
-.cover{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#f5f1ea;
-}
+        /* --- Cover Section (Bao thư) --- */
+        .cover {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)), 
+                        url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            transition: transform 1s ease;
+            text-align: center;
+        }
 
-.open-btn{
-    padding:15px 30px;
-    font-size:20px;
-    border:1px solid #caa56a;
-    background:white;
-    cursor:pointer;
-}
+        .envelope-wrapper {
+            cursor: pointer;
+            position: relative;
+            transition: 0.3s;
+        }
+        .envelope-wrapper:hover { transform: scale(1.05); }
 
-/* Nội dung chính */
-.container{
-    width:900px;
-    margin:auto;
-    padding:40px;
-    background:#f8f4ee;
-    display:none;
-}
+        .envelope {
+            width: 280px;
+            height: 180px;
+            background: var(--envelope-bg);
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .envelope::before {
+            content: ""; position: absolute; top: 0; z-index: 2;
+            border-top: 100px solid #e9e0d1; border-left: 140px solid transparent; border-right: 140px solid transparent;
+        }
+        .envelope::after {
+            content: ""; position: absolute; bottom: 0; z-index: 1;
+            border-bottom: 100px solid var(--envelope-bg); border-left: 140px solid #ebe2d3; border-right: 140px solid #ebe2d3;
+        }
+        .wax-seal {
+            position: absolute; z-index: 3; width: 50px; height: 50px;
+            background: radial-gradient(circle, #e6c17a 0%, #caa56a 100%);
+            border-radius: 50%; transform: translateY(-10px);
+            display: flex; justify-content: center; align-items: center;
+            color: white; font-family: 'Dancing Script'; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
 
-.header{
-    display:flex;
-    align-items:center;
-}
+        /* --- Main Card --- */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            display: none;
+            border-radius: 4px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+            position: relative;
+            padding: 40px;
+            overflow: hidden;
+        }
+        .container.active { display: block; opacity: 1; transform: translateY(0); }
 
-.avatar{
-    width:150px;
-    height:150px;
-    border-radius:50%;
-    border:5px solid #d4b07a;
-    margin-right:30px;
-    background:url("https://cdn-icons-png.flaticon.com/512/847/847969.png");
-    background-size:cover;
-}
+        /* Header Thiệp */
+        .card-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0e6d6;
+            position: relative;
+        }
+        .card-header::after {
+            content: "✿";
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 10px;
+            color: var(--gold);
+        }
+        .header-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 50px;
+            color: var(--gold);
+            margin: 0;
+            line-height: 1.2;
+        }
+        .header-subtitle {
+            font-family: 'Dancing Script', cursive;
+            font-size: 35px;
+            color: var(--gold);
+            margin-top: -10px;
+        }
 
-.title{
-    font-family: 'Dancing Script', cursive;
-    font-size:40px;
-    color:#a67c52;
-}
+        /* Profile Section (Flex) */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .avatar {
+            flex-shrink: 0;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 1px solid var(--gold);
+            padding: 8px;
+            background: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        .avatar-inner {
+            width: 100%; height: 100%; border-radius: 50%;
+            background: url("https://i.postimg.cc/CLKvkLvN/493688393-2376220032747755-4058965580282625632-n.jpg") center/cover;
+        }
+        .profile-info h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 28px;
+            color: #888;
+            margin: 0;
+        }
+        .profile-info .main-name {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 5px 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .tag-school {
+            display: inline-block;
+            padding: 5px 15px;
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--gold);
+            font-family: 'Montserrat';
+        }
+        .quote {
+            font-style: italic;
+            font-size: 15px;
+            color: #666;
+            margin-top: 15px;
+            line-height: 1.6;
+            max-width: 400px;
+        }
 
-.name{
-    font-size:36px;
-    margin-top:10px;
-}
+        /* Detail Section */
+        .detail-label {
+            background: var(--gold);
+            color: white;
+            display: inline-block;
+            padding: 8px 25px;
+            font-family: 'Montserrat';
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin: 30px 0 20px;
+            text-transform: uppercase;
+        }
 
-.button{
-    display:inline-block;
-    border:1px solid #caa56a;
-    padding:8px 20px;
-    margin-top:10px;
-    border-radius:5px;
-}
+        .info-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: center;
+        }
+        .info {
+            padding: 30px;
+            background: #fffcf9;
+            border: 1px solid #f0e6d6;
+        }
+        .info h3 {
+            font-size: 14px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
 
-/* Thông tin */
-.section-title{
-    text-align:center;
-    margin-top:40px;
-    background:#caa56a;
-    color:white;
-    padding:8px;
-    width:250px;
-    margin-left:auto;
-    margin-right:auto;
-}
+        .countdown {
+            padding: 20px 0;
+            font-family: 'Montserrat';
+            font-size: 16px;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+            letter-spacing: 1px;
+            color: #888;
+        }
 
-.info-box{
-    border:1px solid #e0d5c5;
-    padding:30px;
-    margin-top:20px;
-    display:flex;
-    justify-content:space-between;
-}
+        /* RSVP */
+        .rsvp-section { margin-top: 50px; }
+        .status-buttons { display: flex; gap: 10px; margin: 15px 0; }
+        .status-btn {
+            flex: 1; padding: 12px; border: 1px solid #ddd; background: white;
+            cursor: pointer; font-family: 'Montserrat'; font-size: 12px;
+        }
+        .status-btn.selected { background: var(--gold); color: white; border-color: var(--gold); }
+        .submit-btn {
+            background: var(--text); color: white; width: 100%; padding: 15px;
+            border: none; margin-top: 20px; cursor: pointer; letter-spacing: 2px;
+        }
 
-.info{
-    width:45%;
-    text-align:center;
-}
-
-/* Timeline */
-.timeline{
-    margin-top:40px;
-    text-align:center;
-}
-
-.timeline-line{
-    height:2px;
-    background:#caa56a;
-    margin:40px 0;
-    position:relative;
-}
-
-.dot{
-    width:12px;
-    height:12px;
-    background:#caa56a;
-    border-radius:50%;
-    position:absolute;
-    top:-5px;
-}
-
-.dot1{left:20%;}
-.dot2{left:50%;}
-.dot3{left:80%;}
-
-/* RSVP */
-.rsvp-section{
-    display:flex;
-    gap:30px;
-    margin-top:50px;
-}
-
-.rsvp, .guestbook{
-    width:50%;
-    border:1px solid #e0d5c5;
-    padding:25px;
-    background:#f8f4ee;
-}
-
-input, textarea{
-    width:100%;
-    padding:10px;
-    margin-top:10px;
-    border:none;
-    border-bottom:1px solid #caa56a;
-    background:transparent;
-}
-
-.btn{
-    padding:8px 15px;
-    border:1px solid #caa56a;
-    background:white;
-    cursor:pointer;
-    margin-top:10px;
-}
-
-.submit{
-    width:100%;
-    margin-top:15px;
-    padding:12px;
-    background:#d8d2c8;
-    border:none;
-}
-
-.message{
-    border-bottom:1px solid #ddd;
-    padding:10px 0;
-}
-
-/* Countdown */
-.countdown{
-    text-align:center;
-    font-size:22px;
-    margin-top:30px;
-    color:#a67c52;
-}
-</style>
+        @media (max-width: 768px) {
+            .profile-section { flex-direction: column; text-align: center; }
+            .info-box { grid-template-columns: 1fr; }
+            .container { padding: 20px; margin: 10px; }
+            .header-title { font-size: 40px; }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- Trang mở -->
-<div class="cover">
-    <button class="open-btn" onclick="openCard()">Mở thiệp</button>
+<div class="cover" id="cover">
+    <div style="font-family: 'Montserrat'; letter-spacing: 4px; color: #888; margin-bottom: 10px;">THƯ MỜI DỰ LỄ TỐT NGHIỆP</div>
+    <div style="font-family: 'Dancing Script'; font-size: 35px; color: var(--gold); margin-bottom: 30px;">Trần Huệ Chi</div>
+    <div class="envelope-wrapper" onclick="openCard()">
+        <div class="envelope">
+            <div class="wax-seal">C</div>
+        </div>
+    </div>
+    <div style="margin-top: 20px; font-family: 'Montserrat'; font-size: 12px; color: #aaa; letter-spacing: 2px;">CHẠM ĐỂ MỞ THƯ</div>
 </div>
 
-<!-- Nội dung -->
 <div class="container" id="card">
+    <!-- Phần Header Thiệp Mới Thêm -->
+    <div class="card-header">
+        <h1 class="header-title">Thiệp Mời</h1>
+        <div class="header-subtitle">Tốt Nghiệp</div>
+    </div>
 
-    <div class="header">
-        <div class="avatar"></div>
-        <div>
-            <div class="title">Mời bạn đến tham dự cùng</div>
-            <div class="name">Trần Huệ Chi</div>
-            <div class="button">K69</div>
+    <!-- Phần Giới Thiệu (Avatar bên trái, Text bên phải) -->
+    <div class="profile-section">
+        <div class="avatar"><div class="avatar-inner"></div></div>
+        <div class="profile-info">
+            <h2>Mời bạn đến tham dự cùng</h2>
+            <div class="main-name">Trần Huệ Chi</div>
+            <div class="tag-school">Đại học Thăng Long</div>
+            <p class="quote">"Thanh xuân như một cơn mưa rào. Hãy cùng mình lưu giữ những khoảnh khắc rực rỡ nhất của tuổi học trò trước khi chúng ta mỗi người một ngả."</p>
         </div>
     </div>
 
-    <div class="countdown" id="countdown"></div>
-
-    <div class="section-title">THÔNG TIN CHI TIẾT</div>
-
-    <div class="info-box">
-        <div class="info">
-            <h3>Thời gian</h3>
-            <p>08:00</p>
-            <p>26/05/2026</p>
-            <br>
-            <h3>Dresscode</h3>
-            <p>Trắng & Đen</p>
-        </div>
-
-        <div class="info">
-            <h3>Địa điểm</h3>
-            <p>Sân trường Đại học Thăng Long</p>
-            <p>Hoàng Mai</p>
-            <br>
-            <h3>Liên hệ</h3>
-            <p>0912 345 678</p>
-        </div>
-    </div>
-
-    <!-- Timeline -->
-    <div class="timeline">
-        <h2 style="font-family:Dancing Script;color:#a67c52;">Timeline</h2>
-
-        <div class="timeline-line">
-            <div class="dot dot1"></div>
-            <div class="dot dot2"></div>
-            <div class="dot dot3"></div>
-        </div>
-
-        <div style="display:flex;justify-content:space-around;">
-            <div>
-                <b>07:30</b>
-                <p>Makeup</p>
+    <div style="text-align: center;">
+        <div class="countdown" id="countdown">Đang đếm ngược...</div>
+        
+        <div class="detail-label">Thông tin chi tiết</div>
+        
+        <div class="info-box">
+            <div class="info">
+                <h3>Thời gian</h3>
+                <p><strong>08:00 AM</strong></p>
+                <p>Thứ 7, 11/04/2026</p>
             </div>
-            <div>
-                <b>08:30</b>
-                <p>Chụp tập thể</p>
-            </div>
-            <div>
-                <b>11:00</b>
-                <p>Tự do</p>
+            <div class="info">
+                <h3>Địa điểm</h3>
+                <p><strong>Đại học Thăng Long</strong></p>
+                <p style="font-size: 14px;">Nghiêm Xuân Yêm, Đại Kim, Hoàng Mai, Hà Nội</p>
             </div>
         </div>
     </div>
 
     <!-- RSVP -->
     <div class="rsvp-section">
-
-        <div class="rsvp">
-            <h2>RSVP</h2>
-            <input type="text" id="name" placeholder="Tên của bạn">
-            <textarea id="wish" placeholder="Lời chúc"></textarea>
-
-            <button class="btn" onclick="attend('Tham dự')">THAM DỰ</button>
-            <button class="btn" onclick="attend('Tiếc quá')">TIẾC QUÁ</button>
-
-            <button class="submit" onclick="sendMessage()">GỬI XÁC NHẬN</button>
+        <h2 style="text-align:center; font-family: 'Dancing Script'; font-size: 35px; color: var(--gold);">Xác nhận tham dự</h2>
+        <input type="text" id="name" placeholder="Tên của bạn..." style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #eee; box-sizing: border-box;">
+        <textarea id="wish" placeholder="Lời chúc của bạn..." rows="2" style="width:100%; padding:12px; border:1px solid #eee; box-sizing: border-box;"></textarea>
+        
+        <div class="status-buttons">
+            <button class="status-btn" onclick="selectStatus(this, 'Tham dự')">SẼ THAM DỰ</button>
+            <button class="status-btn" onclick="selectStatus(this, 'Tiếc quá')">XIN VẮNG MẶT</button>
         </div>
-
-        <div class="guestbook">
-            <h2>Sổ lưu bút</h2>
-            <div id="messages"></div>
-        </div>
-
+        <button class="submit-btn" onclick="sendMessage()">GỬI LỜI XÁC NHẬN</button>
     </div>
 
+    <div id="messages" style="margin-top: 30px;"></div>
 </div>
 
-<!-- Nhạc -->
 <audio id="music" loop>
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 function openCard(){
-    document.querySelector(".cover").style.display="none";
-    document.getElementById("card").style.display="block";
-    document.getElementById("music").play();
+    document.getElementById("cover").style.opacity = "0";
+    setTimeout(() => {
+        document.getElementById("cover").style.display = "none";
+        const card = document.getElementById("card");
+        card.style.display = "block";
+        setTimeout(() => card.classList.add('active'), 50);
+    }, 800);
+    document.getElementById("music").play().catch(() => {});
 }
 
-/* Countdown */
-var countDownDate = new Date("May 26, 2026 08:00:00").getTime();
-
-var x = setInterval(function() {
-    var now = new Date().getTime();
-    var distance = countDownDate - now;
-
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.getElementById("countdown").innerHTML =
-    "Còn " + days + " ngày " + hours + " giờ "
-    + minutes + " phút " + seconds + " giây";
+const targetDate = new Date(2026, 3, 11, 8, 0, 0).getTime();
+setInterval(() => {
+    const diff = targetDate - new Date().getTime();
+    if (diff < 0) { document.getElementById("countdown").innerHTML = "Sự kiện đã diễn ra"; return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById("countdown").innerHTML = `${d} ngày : ${h} giờ : ${m} phút : ${s} giây`;
 }, 1000);
 
-/* RSVP */
-let statusAttend = "";
-
-function attend(status){
-    statusAttend = status;
+let status = "";
+function selectStatus(btn, s) {
+    document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    status = s;
 }
 
 function sendMessage(){
-    let name = document.getElementById("name").value;
-    let wish = document.getElementById("wish").value;
-
-    if(name == "") return;
-
-    let messageBox = document.getElementById("messages");
-
-    let div = document.createElement("div");
-    div.className = "message";
-    div.innerHTML = "<b>" + name + "</b><br>" +
-                    '"' + wish + '"<br>' +
-                    "<i>" + statusAttend + "</i>";
-
-    messageBox.prepend(div);
-
-    document.getElementById("name").value="";
-    document.getElementById("wish").value="";
+    const n = document.getElementById("name").value;
+    if(!n) return alert("Nhập tên nhé!");
+    const m = document.createElement("div");
+    m.style.padding = "10px"; m.style.borderBottom = "1px solid #f9f9f9";
+    m.innerHTML = `<strong>${n}</strong> <small style="color:var(--gold)">— ${status}</small><br><i style="color:#666">"${document.getElementById("wish").value}"</i>`;
+    document.getElementById("messages").prepend(m);
+    document.getElementById("name").value = ""; document.getElementById("wish").value = "";
 }
 </script>
 
