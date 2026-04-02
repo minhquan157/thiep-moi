@@ -337,14 +337,76 @@ function selectStatus(btn, s) {
     status = s;
 }
 
-function sendMessage(){
+// Biến toàn cục để lưu trạng thái tham dự
+let selectedStatus = ""; 
+
+function selectStatus(btn, s) {
+    // Xóa class selected ở tất cả các nút
+    document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('selected'));
+    // Thêm class cho nút vừa bấm
+    btn.classList.add('selected');
+    // Gán giá trị vào biến selectedStatus
+    selectedStatus = s; 
+}
+
+async function sendMessage() {
     const n = document.getElementById("name").value;
-    if(!n) return alert("Nhập tên nhé!");
-    const m = document.createElement("div");
-    m.style.padding = "10px"; m.style.borderBottom = "1px solid #f9f9f9";
-    m.innerHTML = `<strong>${n}</strong> <small style="color:var(--gold)">— ${status}</small><br><i style="color:#666">"${document.getElementById("wish").value}"</i>`;
-    document.getElementById("messages").prepend(m);
-    document.getElementById("name").value = ""; document.getElementById("wish").value = "";
+    const w = document.getElementById("wish").value;
+    
+    // Kiểm tra tên
+    if (!n) {
+        alert("Bạn vui lòng nhập tên nhé!");
+        return;
+    }
+    // Kiểm tra trạng thái (Sử dụng biến selectedStatus)
+    if (!selectedStatus) {
+        alert("Bạn vui lòng chọn trạng thái tham dự nhé!");
+        return;
+    }
+
+    const btn = document.querySelector('.submit-btn');
+    const originalText = btn.innerText;
+    btn.innerText = "ĐANG GỬI...";
+    btn.disabled = true;
+
+    const data = { name: n, status: selectedStatus, wish: w };
+
+    try {
+        // Link Apps Script của bạn
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbx5_njjpTeNWAZZ8vsL7nq5R1twm4hZURvIapAtnuSk-zlcFQTeF_tO9ly7EAKbScjSMg/exec';
+
+        await fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        // Hiển thị ngay lên màn hình
+        const m = document.createElement("div");
+        m.className = "message-item";
+        m.innerHTML = `
+            <span class="status-tag">${selectedStatus}</span>
+            <strong>${n}</strong>
+            <p>"${w || 'Chúc bạn có một buổi lễ thật ý nghĩa!'}"</p>
+        `;
+        document.getElementById("messages").prepend(m);
+
+        // Reset lại form
+        document.getElementById("name").value = "";
+        document.getElementById("wish").value = "";
+        document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('selected'));
+        selectedStatus = ""; // Reset biến
+        
+        alert("Cảm ơn bạn! Lời xác nhận đã được gửi đi.");
+
+    } catch (error) {
+        console.error('Lỗi:', error);
+        alert("Có lỗi kết nối, nhưng lời chúc đã được hiển thị tạm thời trên trang.");
+    } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
 }
 </script>
 
